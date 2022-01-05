@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+        html, body {
+          height: 100%;
+          width: 100%;
+          overflow: hidden;
+        }
+        
+        body {
+          font-family: 'Inconsolata';
+          font-weight: bold;
+          font-size: 16vmin;
+          text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+         }
+        
+    </style>
+</head>
+<body>
+    <div class="js-odoo"></div>
+    <script src="https://cdn.jsdelivr.net/gh/coderitual/odoo@feature/codevember16/lib/odoo.js"></script>
+
+    <script type="text/javascript">
+        odoo.default({ el:'.js-odoo', from: '20220101', to: '20220104', animationDelay: 1000 });
+    </script>
+</body>
+</html>

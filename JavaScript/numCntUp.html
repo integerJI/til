@@ -19,9 +19,9 @@
 
             function timeCounter() {
 
-                cntStop = setInterval(countUp, 50);
+                cntStop = setInterval(cntUp, 50);
 
-                function countUp() {
+                function cntUp() {
                     count++;
                     if (count > 100) {
                         clearInterval(cntStop);
