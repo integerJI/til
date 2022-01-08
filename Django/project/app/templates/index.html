@@ -1,0 +1,9 @@
+{% if request.user.is_authenticated %}
+    <p>정상회원 :)</p>
+{% else %}
+    <p>미회원 :(</p>
+{% endif %}
+
+<a href="{% url 'app:kakao_login_page' %}">카카오 로그인</a>
+
+

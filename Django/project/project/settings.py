@@ -35,6 +35,13 @@ def get_secret(setting, secrets=secrets):
 
 SECRET_KEY = get_secret("SECRET_KEY")
 
+# kakao api key add
+SOCIAL_OUTH_CONFIG = {
+    "KAKAO_REST_API_KEY": get_secret('KAKAO_REST_API_KEY'),
+    "KAKAO_REDIRECT_URI": get_secret('KAKAO_REDIRECT_URI'),
+    "KAKAO_SECRET_KEY": get_secret('KAKAO_SECRET_KEY')
+}
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
