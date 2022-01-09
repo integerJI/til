@@ -39,7 +39,8 @@ SECRET_KEY = get_secret("SECRET_KEY")
 SOCIAL_OUTH_CONFIG = {
     "KAKAO_REST_API_KEY": get_secret('KAKAO_REST_API_KEY'),
     "KAKAO_REDIRECT_URI": get_secret('KAKAO_REDIRECT_URI'),
-    "KAKAO_SECRET_KEY": get_secret('KAKAO_SECRET_KEY')
+    "KAKAO_SECRET_KEY": get_secret('KAKAO_SECRET_KEY'),
+    "KAKAO_JS_KEY": get_secret('KAKAO_JS_KEY')
 }
 
 # SECURITY WARNING: don't run with debug turned on in production!

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from project.settings import SOCIAL_OUTH_CONFIG
 from .exception import KakaoException
-import requests
 from django.contrib.auth.models import User
 from django.contrib import auth
+import requests
 
 # Create your views here.
 def index(request):
@@ -11,6 +11,12 @@ def index(request):
 
 def kakao_login_page(request):
     return render(request, 'kakao_login.html')
+
+def kakao_local(request):
+    context = {
+        "kakaoJsKey" : SOCIAL_OUTH_CONFIG['KAKAO_JS_KEY']
+    }
+    return render(request, 'kakao_local.html', context)
 
 def kakao_login(request):
     KAKAO_REST_API_KEY = SOCIAL_OUTH_CONFIG['KAKAO_REST_API_KEY']
@@ -44,22 +50,23 @@ def kakao_callback(request):
         #(5)
         profile_request = requests.get("https://kapi.kakao.com/v2/user/me", headers={"Authorization": f"Bearer {access_token}"},)
         profile_json = profile_request.json()
+
+        print(profile_json)
         #(6)
         email = profile_json.get("kakao_account", None).get("email")
         if email is None:
-            raise KakaoException()
-        properties = profile_json.get("properties")
-        nickname = properties.get("nickname")
-        profile_image = properties.get("profile_image")
+            email = 'admin@admin.com'
+
         #(7)
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.filter(email=email)
             if user.login_method != User.LOGIN_KAKAO:
                 raise KakaoException()
         except User.DoesNotExist:
             user = User.objects.create(
                 username=email,
                 email=email,
+                login_method = "LOGIN_KAKAO",
                 email_verified=True,
             )
             user.set_unusable_password()
@@ -69,42 +76,3 @@ def kakao_callback(request):
         return redirect("/")
     except KakaoException:
         return redirect("/")
-
-
-
-# @api_view(['GET'])
-# @permission_classes([AllowAny, ])
-# def kakaoGetLogin(request):
-#     CLIENT_ID = SOCIAL_OUTH_CONFIG['KAKAO_REST_API_KEY']
-#     REDIRET_URL = SOCIAL_OUTH_CONFIG['KAKAO_REDIRECT_URI']
-#     url = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={0}&redirect_uri={1}".format(
-#         CLIENT_ID, REDIRET_URL)
-#     res = redirect(url)
-#     return res
-
-# @api_view(['GET'])
-# @permission_classes([AllowAny, ])
-# def getUserInfo(reqeust):
-#     CODE = reqeust.query_params['code']
-#     url = "https://kauth.kakao.com/oauth/token"
-#     res = {
-#             'grant_type': 'authorization_code',
-#             'client_id': SOCIAL_OUTH_CONFIG['KAKAO_REST_API_KEY'],
-#             'redirect_url': SOCIAL_OUTH_CONFIG['KAKAO_REDIRECT_URI'],
-#             'client_secret': SOCIAL_OUTH_CONFIG['KAKAO_SECRET_KEY'],
-#             'code': CODE
-#         }
-#     headers = {
-#         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-#     }
-#     response = requests.post(url, data=res, headers=headers)
-#     # 그 이후 부분
-#     tokenJson = response.json()
-#     userUrl = "https://kapi.kakao.com/v2/user/me" # 유저 정보 조회하는 uri
-#     auth = "Bearer "+tokenJson['access_token'] ## 'Bearer '여기에서 띄어쓰기 필수!!
-#     HEADER = {
-#         "Authorization": auth,
-#         "Content-type": "application/x-www-form-urlencoded;charset=utf-8"
-#     }
-#     res = requests.get(userUrl, headers=HEADER)
-#     return Response(res.text)
