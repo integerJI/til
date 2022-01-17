@@ -76,3 +76,6 @@ def kakao_callback(request):
         return redirect("/")
     except KakaoException:
         return redirect("/")
+
+def qrcode(request):
+    return render(request, 'qrcode.html')

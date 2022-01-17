@@ -48,6 +48,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'qr-code': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'qr-code-cache',
+        'TIMEOUT': 3600
+    }
+}
+
+QR_CODE_CACHE_ALIAS = 'qr-code'
 
 # Application definition
 
@@ -59,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'qr_code',
 ]
 
 MIDDLEWARE = [
