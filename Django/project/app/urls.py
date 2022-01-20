@@ -10,4 +10,5 @@ urlpatterns = [
     path('kakao_callback/', views.kakao_callback, name='kakao_callback'),
     path('qrcode/', views.qrcode, name='qrcode'),
     path('json/', views.jsonView.as_view(), name='json'),
+    path('kakao_maps/', views.kakao_maps, name='kakao_maps'),
 ]

@@ -22,10 +22,10 @@
                 if (req.readyState === XMLHttpRequest.DONE) {
                     if (req.status === 200) {
                         document.getElementById("json_test").innerHTML = req.responseText;
+                        console.log(req.responseText);
                     }
                 }
             }
-
 
             xhttp.open("POST", "{% url 'app:json' %}", true);
             xhttp.setRequestHeader('X-CSRFToken', '{{csrf_token}}');

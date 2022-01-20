@@ -97,3 +97,10 @@ class jsonView(View):
         response["message"] = data['title']+" 통신 성공 !!"
         response["return_url"] = "/"
         return JsonResponse(response, json_dumps_params = {'ensure_ascii': False})
+        
+def kakao_maps(request):
+    context = {
+        "kakaoJsKey" : SOCIAL_OUTH_CONFIG['KAKAO_JS_KEY']
+    }
+    return render(request, 'kakao_maps.html', context)
+        
