@@ -3,7 +3,9 @@ from project.settings import SOCIAL_OUTH_CONFIG
 from .exception import KakaoException
 from django.contrib.auth.models import User
 from django.contrib import auth
-import requests
+from django.http import JsonResponse
+from django.views import View
+import requests, json
 
 # Create your views here.
 def index(request):
@@ -79,3 +81,19 @@ def kakao_callback(request):
 
 def qrcode(request):
     return render(request, 'qrcode.html')
+
+class jsonView(View):
+    def get(self, request):
+        return render(request, 'json.html')
+
+    def post(self, request):
+        response = {}
+        
+        body = request.body.decode('utf8')
+        data = json.loads(body)
+
+        response["result"] = "true"
+        response["status_code"] = "200"
+        response["message"] = data['title']+" 통신 성공 !!"
+        response["return_url"] = "/"
+        return JsonResponse(response, json_dumps_params = {'ensure_ascii': False})
