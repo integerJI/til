@@ -22,7 +22,12 @@
                 if (req.readyState === XMLHttpRequest.DONE) {
                     if (req.status === 200) {
                         document.getElementById("json_test").innerHTML = req.responseText;
-                        console.log(req.responseText);
+                        console.log(typeof(req.responseText));
+                        // json 변환
+                        let json_text = JSON.parse(req.responseText);
+                        
+                        console.log(json_text.return_url);
+                        location.href=json_text.return_url
                     }
                 }
             }

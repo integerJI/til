@@ -96,6 +96,9 @@ class jsonView(View):
         response["status_code"] = "200"
         response["message"] = data['title']+" 통신 성공 !!"
         response["return_url"] = "/"
+
+        json_data = json.dumps(data)
+
         return JsonResponse(response, json_dumps_params = {'ensure_ascii': False})
         
 def kakao_maps(request):
