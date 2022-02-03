@@ -1,0 +1,28 @@
+<h1>url 인코딩하기</h1>
+<input type="textarea" name="encoding" id="encoding"/>
+<input type="submit" value="변환" id="btn_submit">
+
+<p id="json_encoding"></p>
+
+<script>
+    document.getElementById("btn_submit").addEventListener("click", () => {
+        var encoding = document.getElementById("encoding").value;
+
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = (e) => {
+            let req = e.target;
+            if (req.readyState === XMLHttpRequest.DONE) {
+                if (req.status === 200) {
+                    document.getElementById("json_encoding").innerHTML = req.responseText;
+                    console.log(typeof(req.responseText));
+                    // json 변환
+                    let json_text = JSON.parse(req.responseText);
+                }
+            }
+        }
+
+        xhttp.open("POST", "{% url 'app:url_change' %}", true);
+        xhttp.setRequestHeader('X-CSRFToken', '{{csrf_token}}');
+        xhttp.send("{\"encoding\":\""+encoding+"\"}");
+    });
+</script> 

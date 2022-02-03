@@ -11,4 +11,5 @@ urlpatterns = [
     path('qrcode/', views.qrcode, name='qrcode'),
     path('json/', views.jsonView.as_view(), name='json'),
     path('kakao_maps/', views.kakao_maps, name='kakao_maps'),
+    path('url_change/', views.urlChangeView.as_view(), name='url_change'),
 ]

@@ -1,3 +1,4 @@
+from email import contentmanager
 from django.shortcuts import render, redirect
 from project.settings import SOCIAL_OUTH_CONFIG
 from .exception import KakaoException
@@ -6,6 +7,7 @@ from django.contrib import auth
 from django.http import JsonResponse
 from django.views import View
 import requests, json
+from urllib import parse
 
 # Create your views here.
 def index(request):
@@ -106,4 +108,25 @@ def kakao_maps(request):
         "kakaoJsKey" : SOCIAL_OUTH_CONFIG['KAKAO_JS_KEY']
     }
     return render(request, 'kakao_maps.html', context)
-        
+
+class urlChangeView(View):
+    def get(self, request):
+        return render(request, 'url_change.html')
+
+    def post(self, request):
+        response = {}
+        body = request.body.decode('utf8')
+        data = json.loads(body)
+
+        encoding = data['encoding']
+        url = parse.urlparse(encoding) 
+        print(type(encoding))
+        print(parse.parse_qs(url.query))
+
+        data['encoding'] = encoding
+
+        response["encoding"] = data['encoding']
+
+        json_data = json.dumps(data)
+
+        return JsonResponse(response, json_dumps_params = {'ensure_ascii': False})
