@@ -19,7 +19,7 @@
 
  - L4(Transport Layer) **
    Transport Layer(IP+Port) Load Balancing
-   장점 : Port 기반 스위칭을 지원하며 VIP를 이용하여 여러대를 한대로 묶어 부하 분산, Round Robin 방식 사용
+   장점 : Port 기반 스위칭을 지원하며 VIP를 이용하여 여러대를 한대로 묶어 부하 분산, [Round Robin ](https://github.com/integerJI/Today_I_Learned/blob/main/DevOps/round_robin.md) 방식 사용
 
  - L7(Application Layer)
    Application Layer(사용자 Request) Load Balancing
