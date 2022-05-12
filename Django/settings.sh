@@ -55,8 +55,8 @@ log "========= Pip Upgrade ========="
 ~/env/bin/python3 -m pip install --upgrade pip
 
 # bash_profile 재시작
-log ""========= .bash_profile Restart ========="
+log "========= .bash_profile Restart ========="
 cd ~
 source ~/.bash_profile
 
-log ""========= End !!! ========="
+log "========= End !!! ========="
