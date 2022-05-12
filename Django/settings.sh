@@ -14,6 +14,7 @@ sudo timedatectl set-timezone 'Asia/Seoul'
 log "========= Apt-get Update ========="
 sudo apt-get update
 sudo apt-get upgrade -y
+sudo apt-get dist-upgrade
 
 # pyenv 설치하며 필요한 패키지 설치
 log "========= App Install ========="
